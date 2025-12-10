@@ -1,0 +1,131 @@
+/* --- Wrapper --- */
+.toggle-outer {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* --- Track Background --- */
+.toggle-track {
+  width: 70px;
+  height: 34px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50px;
+  position: relative;
+  padding: 4px;
+  transition: background 0.35s ease;
+  overflow: hidden;
+}
+
+.toggle-track.light {
+  background: rgba(255, 215, 0, 0.25);
+}
+
+.toggle-track.dark {
+  background: rgba(125, 211, 252, 0.18);
+}
+
+/* --- Thumb (Sun/Moon) --- */
+.toggle-thumb {
+  width: 26px;
+  height: 26px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  transform: translateX(0);
+  transition:
+    transform 0.45s cubic-bezier(.25, 1.4, .35, 1),
+    background 0.35s ease,
+    border-radius 0.45s ease;
+}
+
+/* Light Mode Thumb (SUN) */
+.toggle-thumb.light {
+  transform: translateX(36px);
+  background: #facc15;
+  border-radius: 12px;
+}
+
+/* Dark Mode Thumb (MOON) */
+.toggle-thumb.dark {
+  transform: translateX(0);
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+/* --- Sun Rays Animation --- */
+.sun-rays {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.toggle-thumb.light .sun-rays {
+  opacity: 1;
+  background:
+    radial-gradient(circle, rgba(255,229,95,0.8) 0%, transparent 60%);
+  animation: spin-rays 4s linear infinite;
+}
+
+@keyframes spin-rays {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Moon Craters --- */
+.moon-crater {
+  position: absolute;
+  background: rgba(0,0,0,0.18);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Show craters only in dark mode */
+.toggle-thumb.dark .moon-crater {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.crater-1 {
+  width: 6px; height: 6px;
+  top: 6px; left: 8px;
+}
+
+.crater-2 {
+  width: 4px; height: 4px;
+  bottom: 7px; right: 5px;
+}
+
+.crater-3 {
+  width: 3px; height: 3px;
+  top: 10px; right: 8px;
+}
+
+/* --- Global Theme Variables --- */
+:root {
+  --bg: #071022;
+  --text: #e6eef8;
+}
+
+[data-theme="light"] {
+  --bg: #f4f7ff;
+  --text: #121212;
+}
+
+[data-theme="dark"] {
+  --bg: #071022;
+  --text: #e6eef8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.4s ease, color 0.35s ease;
+}

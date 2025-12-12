@@ -3,28 +3,64 @@
   --text: #e6eef8;
   --muted: #94a3b8;
   --card: #071725;
-  --accent: blue;
+  --accent: blue; /* default accent ONLY here */
   --glass: rgba(255,255,255,0.03);
+
+  /* Modal defaults */
+  --modal-bg: rgba(20, 20, 20, 0.55);
+  --modal-text: #ffffff;
+  --modal-border: rgba(255,255,255,0.15);
+  --modal-overlay: rgba(0, 0, 0, 0.25);
+
+  --nav-bg: rgba(0, 0, 0, 0.35);
+  --nav-border: rgba(255, 255, 255, 0.06);
+
+  --dropdown-bg: rgba(0, 0, 0, 0.35);
+  --dropdown-border: rgba(255, 255, 255, 0.1);
+  --dropdown-text: #ffffff;
 }
 
-/* ✅ LIGHT MODE */
+/* LIGHT MODE */
 [data-theme="light"] {
   --bg: #f6f7fb;
   --text: #0a0a0a;
   --muted: #5a5a5a;
   --card: #ffffff;
-  --accent: #2563eb;
+  /* ❌ removed --accent */
   --glass: rgba(0,0,0,0.05);
+
+  --modal-bg: rgba(255, 255, 255, 0.65);
+  --modal-text: #222222;
+  --modal-border: rgba(0,0,0,0.12);
+  --modal-overlay: rgba(0,0,0,0.15);
+
+  --nav-bg: rgba(255, 255, 255, 0.6);
+  --nav-border: rgba(0, 0, 0, 0.08);
+
+  --dropdown-bg: rgba(255, 255, 255, 0.95);
+  --dropdown-border: rgba(0, 0, 0, 0.1);
+  --dropdown-text: #222;
 }
 
-/* ✅ DARK MODE */
+/* DARK MODE */
 [data-theme="dark"] {
   --bg: #000000;
   --text: #ffffff;
   --muted: #9aa7b8;
   --card: #020204;
-  --accent: #ffb703;
+  /* ❌ removed --accent */
   --glass: rgba(255,255,255,0.03);
+
+  --modal-bg: rgba(20, 20, 20, 0.55);
+  --modal-text: #ffffff;
+  --modal-border: rgba(255,255,255,0.15);
+  --modal-overlay: rgba(0, 0, 0, 0.35);
+
+  --nav-bg: rgba(0, 0, 0, 0.35);
+  --nav-border: rgba(255, 255, 255, 0.06);
+
+  --dropdown-bg: rgba(30, 30, 30, 0.55);
+  --dropdown-text: #fff;
 }
 
 /* APPLY THEME */

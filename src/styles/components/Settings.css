@@ -38,7 +38,7 @@
 /* Desktop center → Mobile bottom sheet */
 @media (max-width: 768px) {
   .settings-overlay {
-    align-items: flex-end;
+    align-items: center;
   }
 }
 

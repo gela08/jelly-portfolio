@@ -32,10 +32,17 @@
   color: var(--muted);
 }
 
+.typing-wrapper {
+  display: inline-block;
+  min-width: 340px; /* desktop */
+  text-align: left;
+}
+
 .typing {
   color: var(--accent);
   font-weight: 700;
   white-space: nowrap;
+  display: inline-block;
 }
 
 /* BUTTON */
@@ -149,6 +156,10 @@ a.about-btn {
     padding-top: 160px;
   }
 
+  .socials {
+    justify-content: center;
+  }
+
   .home-right {
     margin-top: 40px;
   }
@@ -161,4 +172,10 @@ a.about-btn {
     width: 260px;
     height: 260px;
   }
+
+  .typing-wrapper {
+    min-width: 260px;
+    text-align: center;
+  }
 }
+

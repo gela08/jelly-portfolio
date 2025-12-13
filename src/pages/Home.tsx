@@ -16,7 +16,7 @@ export default function Home() {
         "Website Builder",
         "UI/UX Designer",
         "Android Developer",
-        "Mobile App Developer (Cross-Platform)",
+        "Mobile App Developer",
         "Web Game Developer"
       ],
       typeSpeed: 70,
@@ -37,8 +37,12 @@ export default function Home() {
         </h1>
 
         <p className="subtitle fade-in delay-2">
-          I Am A <span className="typing" ref={typingRef}></span>
+          I Am A{" "}
+          <span className="typing-wrapper">
+            <span className="typing" ref={typingRef}></span>
+          </span>
         </p>
+
 
         <a className="about-btn fade-in delay-3" href="#about">
           About Me ↓

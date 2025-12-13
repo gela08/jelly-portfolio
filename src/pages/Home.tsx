@@ -16,7 +16,7 @@ export default function Home() {
         "Website Builder",
         "UI/UX Designer",
         "Android Developer",
-        "Mobile App Developer",
+        "Mobile App Developer (Cross-Platform)",
         "Web Game Developer"
       ],
       typeSpeed: 70,

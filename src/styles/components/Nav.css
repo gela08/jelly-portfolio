@@ -115,7 +115,7 @@ nav,
 }
 
 /* Show dropdown */
-.about.open .dropdown {
+/* .about.open .dropdown {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);

@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import "../styles/components/Settings.css";
 
 interface SettingsModalProps {
@@ -8,7 +9,7 @@ interface SettingsModalProps {
   onChangeColor: (color: string) => void;
 }
 
-const COLORS = ["blue", "purple",  "red", "#FF007F", "#FF5B00", "green"];
+const COLORS = ["blue", "purple", "red", "#FF007F", "#FF5B00", "green"];
 
 export default function SettingsModal({
   isOpen,
@@ -21,7 +22,8 @@ export default function SettingsModal({
   const [activeTheme, setActiveTheme] = useState("default");
   const [useSystem, setUseSystem] = useState(false);
 
-  // DRAG PHYSICS
+  /* ---------------- DRAG PHYSICS ---------------- */
+
   const modalRef = useRef<HTMLDivElement>(null);
   const startY = useRef(0);
   const currentY = useRef(0);
@@ -31,13 +33,12 @@ export default function SettingsModal({
   const dragging = useRef(false);
 
   const MIN_CLOSE_DRAG = 120;
-  const VELOCITY_CLOSE_THRESHOLD = 1.2; // fast swipe = close
+  const VELOCITY_CLOSE_THRESHOLD = 1.2;
 
   const dragStart = (e: React.TouchEvent | React.MouseEvent) => {
     dragging.current = true;
 
     const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
-
     startY.current = clientY;
     lastY.current = clientY;
     lastTime.current = performance.now();
@@ -52,21 +53,16 @@ export default function SettingsModal({
 
     const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
     const delta = clientY - startY.current;
-
-    if (delta < 0) return; // cannot drag upward
+    if (delta < 0) return;
 
     currentY.current = delta;
 
-    // Compute velocity
     const now = performance.now();
-    const dy = clientY - lastY.current;
-    const dt = now - lastTime.current;
-    velocity.current = dy / dt; // px per ms
+    velocity.current = (clientY - lastY.current) / (now - lastTime.current);
 
     lastY.current = clientY;
     lastTime.current = now;
 
-    // Rubber-band stretch when dragging long distances
     let dragAmount = delta;
     if (delta > 180) {
       dragAmount = 180 + (delta - 180) * 0.25;
@@ -77,19 +73,16 @@ export default function SettingsModal({
 
   const dragEnd = () => {
     dragging.current = false;
-
     if (!modalRef.current) return;
 
     const fastSwipe = velocity.current > VELOCITY_CLOSE_THRESHOLD;
     const longDrag = currentY.current > MIN_CLOSE_DRAG;
 
     if (fastSwipe || longDrag) {
-      // CLOSE SHEET
       modalRef.current.style.transition = "0.35s cubic-bezier(.33,1.07,.53,1.29)";
       modalRef.current.style.transform = "translateY(100vh)";
       setTimeout(onClose, 250);
     } else {
-      // BOUNCE BACK (spring)
       modalRef.current.style.transition = "0.4s cubic-bezier(.2,1.15,.45,1.35)";
       modalRef.current.style.transform = "translateY(0)";
     }
@@ -106,7 +99,7 @@ export default function SettingsModal({
     onChangeTheme(theme);
   };
 
-  return (
+  return createPortal(
     <div className="settings-overlay show" onClick={onClose}>
       <div
         ref={modalRef}
@@ -124,36 +117,32 @@ export default function SettingsModal({
       >
         <div className="settings-handle"></div>
 
-        <button className="settings-close-btn" onClick={onClose}>×</button>
         <h1 className="settings-title">Settings</h1>
 
         <h2>Color</h2>
         <div className="color-row">
           {COLORS.map((c) => (
-
             <button
               key={c}
               className={`color-dot ${activeColor === c ? "active" : ""}`}
-              style={{ backgroundColor: c, color: c }}   // <<< ADD color: c
+              style={{ backgroundColor: c, color: c }}
               onClick={() => {
                 setActiveColor(c);
                 onChangeColor(c);
               }}
-            ></button>
-
-
+            />
           ))}
         </div>
 
         <h2>Background</h2>
         <div className="theme-row">
-          <button className={activeTheme === "default" ? "theme-btn active" : "theme-btn"} onClick={() => handleTheme("default")}>
+          <button className={`theme-btn ${activeTheme === "default" ? "active" : ""}`} onClick={() => handleTheme("default")}>
             Default
           </button>
-          <button className={activeTheme === "dim" ? "theme-btn active" : "theme-btn"} onClick={() => handleTheme("dim")}>
+          <button className={`theme-btn ${activeTheme === "dim" ? "active" : ""}`} onClick={() => handleTheme("dim")}>
             Light
           </button>
-          <button className={activeTheme === "lights-out" ? "theme-btn active" : "theme-btn"} onClick={() => handleTheme("lights-out")}>
+          <button className={`theme-btn ${activeTheme === "lights-out" ? "active" : ""}`} onClick={() => handleTheme("lights-out")}>
             Dark
           </button>
         </div>
@@ -177,6 +166,7 @@ export default function SettingsModal({
           </label>
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById("modal-root")!
   );
 }

@@ -5,23 +5,41 @@
 .settings-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(12px);
+
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.35)
+  );
+
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
 
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* bottom sheet alignment */
+  align-items: center;
   padding: 24px;
 
   opacity: 0;
   visibility: hidden;
-  transition: 0.25s ease;
+
+  transition:
+    opacity 0.3s ease,
+    backdrop-filter 0.3s ease,
+    -webkit-backdrop-filter 0.3s ease;
+
   z-index: 9999;
 }
 
 .settings-overlay.show {
   opacity: 1;
   visibility: visible;
+}
+
+/* Desktop center → Mobile bottom sheet */
+@media (max-width: 768px) {
+  .settings-overlay {
+    align-items: flex-end;
+  }
 }
 
 /* ------------------------- */
@@ -32,74 +50,49 @@
   width: 420px;
   max-width: 95%;
   padding: 28px;
-  top:450px;
 
-  background: var(--modal-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--modal-border);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+
+  border: 1px solid rgba(255,255,255,0.18);
   border-radius: 22px;
 
-  box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 
-  animation: slideUp 0.35s ease;
+  animation: slideUp 0.35s cubic-bezier(.2,1,.3,1);
   position: relative;
 
   max-height: 88vh;
   overflow-y: auto;
 }
 
-/* Slide-up animation */
+/* Animation */
 @keyframes slideUp {
   from {
-    transform: translateY(40px);
+    transform: translateY(40px) scale(0.97);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
 
-/* iOS Handle */
+/* Drag Handle */
 .settings-handle {
-  width: 45px;
-  height: 6px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 6px;
+  width: 44px;
+  height: 5px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.4);
   margin: 0 auto 12px;
-}
-
-/* ------------------------- */
-/*        CLOSE BUTTON       */
-/* ------------------------- */
-
-.settings-close-btn {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(6px);
-
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  color: var(--modal-text);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  transition: 0.2s ease;
-}
-
-.settings-close-btn:hover {
-  background: rgba(0,0,0,0.25);
-  transform: scale(1.1);
 }
 
 /* ------------------------- */
@@ -136,49 +129,15 @@
   border: 2px solid transparent;
   cursor: pointer;
   transition: 0.2s ease;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  color: white; /* checkmark color default */
 }
 
 .color-dot.active {
   border-color: currentColor;
   box-shadow: 0 0 10px currentColor;
-  color: currentColor; /* checkmark color matches circle */
-}
-
-.color-dot.active::after {
-  content: "✓";
-  font-size: 16px;
-  color: white; /* Keep the checkmark visible */
 }
 
 .color-dot:hover {
   transform: scale(1.15);
-}
-
-/* Ripple effect */
-.color-dot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.28);
-  border-radius: 50%;
-  opacity: 0;
-  transform: scale(0.5);
-  transition: 0.25s ease;
-}
-
-
-
-
-.dot-check {
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
 }
 
 /* ------------------------- */
@@ -194,11 +153,9 @@
   flex: 1;
   padding: 12px;
   border-radius: 12px;
-
   background: rgba(255,255,255,0.08);
-  border: 1px solid var(--modal-border);
-  color: var(--modal-text);
-
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
   cursor: pointer;
   transition: 0.3s ease;
 }
@@ -209,9 +166,7 @@
 
 .theme-btn.active {
   background: var(--accent);
-  color: #fff;
   border-color: transparent;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.28);
 }
 
 /* ------------------------- */
@@ -222,7 +177,6 @@
   margin-top: 12px;
   padding-top: 14px;
   border-top: 1px solid rgba(255,255,255,0.15);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -233,7 +187,7 @@
   opacity: 0.8;
 }
 
-/* Toggle Switch */
+/* Toggle */
 .switch {
   position: relative;
   width: 50px;
@@ -242,8 +196,6 @@
 
 .switch input {
   opacity: 0;
-  width: 0;
-  height: 0;
 }
 
 .slider {
@@ -281,7 +233,7 @@
 @media (max-width: 550px) {
   .settings-modal.upgraded {
     width: 100%;
-    border-radius: 20px 20px 0 0; /* bottom sheet */
+    border-radius: 20px 20px 0 0;
     padding: 22px;
   }
 
@@ -293,40 +245,26 @@
     width: 32px;
     height: 32px;
   }
+}
 
-  .settings-close-btn {
-    top: 10px;
-    right: 10px;
+/* Drag UX */
+.settings-modal.draggable {
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.settings-modal.draggable:active {
+  cursor: grabbing;
+}
+
+/* Fallback */
+@supports not (backdrop-filter: blur(1px)) {
+  .settings-overlay {
+    background: rgba(0, 0, 0, 0.6);
   }
-}
 
-/* Enable smooth dragging */
-.settings-modal.draggable {
-  touch-action: none;
-  user-select: none;
-  cursor: grab;
-}
-
-.settings-modal.draggable:active {
-  cursor: grabbing;
-}
-
-/* Drag Handle */
-.settings-handle {
-  width: 42px;
-  height: 5px;
-  border-radius: 5px;
-  background: rgba(255,255,255,0.35);
-  margin: 0 auto 12px;
-}
-
-/* Draggable sheet */
-.settings-modal.draggable {
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
-}
-
-.settings-modal.draggable:active {
-  cursor: grabbing;
+  .settings-modal.upgraded {
+    background: rgba(20, 20, 20, 0.9);
+  }
 }

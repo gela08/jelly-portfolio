@@ -1,5 +1,5 @@
 .about-section {
-  padding: 10px 10% 120px; 
+  padding: 10px 10% 150px; 
   background: var(--bg);
   color: var(--text);
 }
@@ -9,6 +9,7 @@
   max-width: 900px;
   margin: auto;
   text-align: center;
+  margin-top: 100px;
 }
 
 /* Title */

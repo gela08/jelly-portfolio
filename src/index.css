@@ -63,6 +63,24 @@
   --dropdown-text: #fff;
 }
 
+:root {
+  --network-dot: rgba(160, 180, 210, 0.9);
+  --network-line: rgba(160, 180, 210, 0.16);
+  --network-glow: rgba(80, 120, 255, 0.18);
+}
+
+[data-theme="light"] {
+  --network-dot: rgba(40, 40, 40, 0.85);
+  --network-line: rgba(40, 40, 40, 0.12);
+  --network-glow: rgba(0, 90, 255, 0.14);
+}
+
+[data-theme="dark"] {
+  --network-dot: rgba(190, 210, 240, 0.9);
+  --network-line: rgba(190, 210, 240, 0.18);
+  --network-glow: rgba(80, 120, 255, 0.22);
+}
+
 /* APPLY THEME */
 body {
   background: var(--bg);

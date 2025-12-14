@@ -1,6 +1,5 @@
 .about-section {
   padding: 10px 10% 150px; 
-  background: var(--bg);
   color: var(--text);
 }
 
@@ -58,7 +57,7 @@
 
 /* Card base + pop-up animation */
 .about-card {
-  width: 260px; 
+  width: 230px; 
   padding: 24px; 
   border-radius: 20px; 
   background: rgba(255, 255, 255, 0.06); 
@@ -75,16 +74,42 @@
 }
 
 .about-card:hover {
-  transform:
-    translateY(-10px)
+  /* transform:
+    translateY(10px)
     scale(1.06)
-    rotateX(8deg)
-    rotateY(-8deg);
+    rotateX(-8deg)
+    rotateY(-8deg); */
   
   border-color: var(--accent); 
   box-shadow: 0 14px 40px rgba(0,0,0,0.35), 
               0 0 24px var(--accent);
 }
+
+.about-btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  background: transparent;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.about-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 
 
 

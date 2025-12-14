@@ -1,0 +1,145 @@
+.skills-section {
+  padding: 90px 10% 140px;
+  color: var(--text);
+}
+
+.skills-title {
+  text-align: center;
+  font-size: 38px;
+  margin-bottom: 60px;
+  color: var(--accent);
+}
+
+/* Group */
+.skills-group {
+  margin-bottom: 60px;
+}
+
+.skills-group-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: var(--text);
+  opacity: 0.85;
+}
+
+/* Carousel */
+.skills-carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.skills-track {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  animation: scroll 26s linear infinite;
+  padding-top: 30px;
+
+  animation: scroll var(--scroll-duration, 26s) linear infinite;
+}
+
+/* Skill Card */
+.skill-item {
+  min-width: 250px;
+  height: 170px;
+  padding: 20px;
+
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* 👈 important */
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.skill-item img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  
+}
+
+/* .skill-logo {
+  background-color: white; 
+  box-shadow: 0 14px 40px rgba(0,0,0,0.35), 
+              0 0 24px var(--accent);
+  border-radius: 100px;
+  padding: 14px;   
+} */
+
+.skill-logo {
+  transition: transform 0.3s ease;
+}
+
+.skill-item:hover .skill-logo {
+  transform: scale(1.08);
+}
+
+.logo-bg {
+  /* box-shadow: 0 14px 40px rgba(0,0,0,0.35), 
+              0 0 24px var(--accent); */
+  background-color: rgb(255, 255, 255);
+  border-radius: 100px;
+  padding: 10px;
+}
+
+.skill-item span {
+  font-size: 20px;
+  color: var(--muted);
+  text-align: center;
+  
+}
+
+.skill-item:hover {
+  transform: translateY(-6px) scale(1.06);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.35);
+  border-color: var(--accent); 
+  box-shadow: 0 14px 40px rgba(0,0,0,0.35), 
+              0 0 24px var(--accent);
+}
+
+.reverse .skills-track {
+  animation: scroll-reverse var(--scroll-duration, 26s) linear infinite;
+}
+.skills-carousel:hover .skills-track {
+  animation-play-state: paused;
+}
+
+
+
+/* Animation */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 850px) {
+  .skills-group-title {
+    font-size: 18px;
+  }
+
+  .skill-item {
+    min-width: 100px;
+  }
+}

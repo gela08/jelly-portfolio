@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import "../styles/pages/About.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLaptopCode, faPaintBrush, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
+import { faLaptopCode, faPaintBrush, faMobileAlt, faBook, faArchive, faImagePortrait, faHandPaper, faGraduationCap, faCertificate, faBriefcase, faUserTie, faBookOpen, faImages } from "@fortawesome/free-solid-svg-icons";
+import { faCode } from "@fortawesome/free-solid-svg-icons/faCode";
 
 export default function About() {
     const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -37,19 +38,46 @@ export default function About() {
 
     const aboutInfo = [
         {
-            icon: faLaptopCode,
-            title: "Web Development",
-            text: "Building responsive, modern websites using smooth UI, animations, and clean design architecture."
+            icon: faCode,
+            title: "Skills",
+            text: "View my technical and creative skill set.",
+            link: "#skills"
         },
         {
-            icon: faPaintBrush,
-            title: "UI / UX Design",
-            text: "Designing soft, aesthetic interfaces that focus on clarity, usability, and visual harmony."
+            icon: faGraduationCap,
+            title: "Education",
+            text: "My academic background and learning journey.",
+            link: "#education"
         },
         {
-            icon: faMobileAlt,
-            title: "Mobile Development",
-            text: "Creating mobile experiences through React Native with modern, fluid, user-centered interfaces."
+            icon: faCertificate,
+            title: "Certification",
+            text: "Certifications and completed trainings.",
+            link: "#certification"
+        },
+        {
+            icon: faBriefcase,
+            title: "Work",
+            text: "Projects and professional work.",
+            link: "#work"
+        },
+        {
+            icon: faUserTie,
+            title: "Experience",
+            text: "Hands-on experience and roles.",
+            link: "#experience"
+        },
+        {
+            icon: faBookOpen,
+            title: "Journal",
+            text: "Reflections and learning highlights from my educational tour.",
+            link: "#journal"
+        },
+        {
+            icon: faImages,
+            title: "Gallery",
+            text: "Photos and moments from my educational tour.",
+            link: "#gallery"
         }
     ];
 
@@ -76,11 +104,15 @@ export default function About() {
                             ref={el => {
                                 cardsRe.current[index] = el;
                             }}
-
                         >
                             <FontAwesomeIcon icon={info.icon} className="about-icon" />
                             <h3>{info.title}</h3>
                             <p>{info.text}</p>
+
+                            {/* Button Link */}
+                            <a href={info.link} className="about-btn">
+                                View Section →
+                            </a>
                         </div>
                     ))}
                 </div>

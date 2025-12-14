@@ -4,7 +4,7 @@ import "../styles/pages/Home.css";
 import avatar from "../assets/avatar.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faGithub, faInstagram, faDev } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin, faGithub, faInstagram, faDev, faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 export default function Home() {
   const typingRef = useRef<HTMLSpanElement>(null);
@@ -122,6 +122,10 @@ useEffect(() => {
 
           <a href="https://dev.to/gela08" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faDev} />
+          </a>
+
+          <a href="https://www.facebook.com/gelagardan" target="_blank" rel="noopener noreferrer">
+            <FontAwesomeIcon icon={faFacebook} />
           </a>
         </div>
       </div>

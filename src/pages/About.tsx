@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import "../styles/pages/About.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLaptopCode, faPaintBrush, faMobileAlt, faBook, faArchive, faImagePortrait, faHandPaper, faGraduationCap, faCertificate, faBriefcase, faUserTie, faBookOpen, faImages } from "@fortawesome/free-solid-svg-icons";
+import { faGraduationCap, faCertificate, faBriefcase, faUserTie, faBookOpen, faImages } from "@fortawesome/free-solid-svg-icons";
 import { faCode } from "@fortawesome/free-solid-svg-icons/faCode";
 
 export default function About() {

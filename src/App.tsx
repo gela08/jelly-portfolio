@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import NetworkBackground from "./components/NetworkBackground";
 import "./styles/components/Network-bg.css";
 import Skills from './pages/Skills'
+import Education from './pages/Education'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Home />
         <About />
         <Skills />
+        <Education />
       </main>
       <Footer />
     </div>

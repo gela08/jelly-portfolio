@@ -1,0 +1,89 @@
+.hover-section {
+  padding: 120px 10%;
+}
+
+/* LIST */
+.hover-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 900px;
+}
+
+/* ROW */
+.hover-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
+.hover-row h3 {
+  font-size: 22px;
+}
+
+.hover-row p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.hover-row span {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* PREVIEW CARD */
+.hover-preview {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+
+  width: 280px;
+  height: 180px;
+  border-radius: 18px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+
+  transform: scale(0.85);
+  opacity: 0;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.hover-preview.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hover-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* VIEW CIRCLE */
+.view-badge {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

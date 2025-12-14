@@ -1,0 +1,219 @@
+.education-section {
+  padding: 120px 10% 150px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 42px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto 70px;
+}
+
+/* Timeline wrapper */
+.education-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Card */
+.education-card {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  height: 250px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  padding: 26px;
+
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.education-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+}
+
+/* Image */
+.edu-image img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 16px;
+
+  box-shadow: 0 0 18px rgba(0,0,0,0.3);
+}
+
+/* Content */
+.edu-content {
+  text-align: left;
+}
+
+.edu-content h3 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.edu-content h4 {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.edu-year {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Status pill */
+.edu-status {
+  display: inline-block;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.edu-status.pursuing {
+  background: rgba(0, 200, 100, 0.15);
+  color: #5aff9c;
+  border: 1px solid rgba(0, 200, 100, 0.4);
+}
+
+.edu-status.completed {
+  background: rgba(0, 140, 255, 0.15);
+  color: #6ab7ff;
+  border: 1px solid rgba(0, 140, 255, 0.4);
+}
+
+/* ============================= */
+/* Hover Preview (Dennis-style)  */
+/* ============================= */
+
+.edu-hover-preview {
+  position: fixed;
+  z-index: 999;
+  pointer-events: none;
+
+  width: 300px;
+  height: 190px;
+  border-radius: 20px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.edu-hover-preview.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.edu-hover-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* View circle
+.view-circle {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+/* Image stack */
+.hover-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Images */
+.hover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  opacity: 0;
+  filter: blur(6px) scale(1.05);
+  transition:
+    opacity 0.8s ease,
+    filter 0.8s ease,
+    transform 0.8s ease;
+}
+
+.hover-img.active {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* STATUS GLOW */
+.hover-stack.pursuing {
+  box-shadow:
+    0 0 25px rgba(90,255,156,0.4),
+    0 0 60px rgba(90,255,156,0.25);
+}
+
+.hover-stack.completed {
+  box-shadow:
+    0 0 25px rgba(106,183,255,0.4),
+    0 0 60px rgba(106,183,255,0.25);
+}
+
+
+/* Disable on mobile */
+@media (max-width: 768px) {
+  .edu-hover-preview {
+    display: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .education-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .edu-content {
+    text-align: center;
+  }
+}

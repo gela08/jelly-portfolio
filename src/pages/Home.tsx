@@ -8,6 +8,9 @@ import { faLinkedin, faGithub, faInstagram, faDev } from "@fortawesome/free-bran
 
 export default function Home() {
   const typingRef = useRef<HTMLSpanElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+
 
   useEffect(() => {
     const typed = new Typed(typingRef.current!, {
@@ -27,6 +30,61 @@ export default function Home() {
 
     return () => typed.destroy();
   }, []);
+
+useEffect(() => {
+  const avatar = avatarRef.current;
+  if (!avatar) return;
+
+  avatar.classList.add("avatar-scroll-up");
+
+  const onScroll = () => {
+    if (window.innerWidth > 850) return;
+
+    const currentScroll = window.scrollY;
+    const scrollingDown = currentScroll > lastScrollY.current;
+
+    if (scrollingDown) {
+      avatar.classList.add("avatar-scroll-down");
+      avatar.classList.remove("avatar-scroll-up");
+    } else {
+      avatar.classList.add("avatar-scroll-up");
+      avatar.classList.remove("avatar-scroll-down");
+    }
+
+    lastScrollY.current = currentScroll;
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
+
+ useEffect(() => {
+  const avatar = avatarRef.current;
+  if (!avatar) return;
+
+  // Set initial state
+  avatar.classList.add("avatar-scroll-up");
+
+  const handleScroll = () => {
+    const currentScroll = window.scrollY;
+    const scrollingDown = currentScroll > lastScrollY.current;
+
+    if (scrollingDown) {
+      avatar.classList.add("avatar-scroll-down");
+      avatar.classList.remove("avatar-scroll-up");
+    } else {
+      avatar.classList.add("avatar-scroll-up");
+      avatar.classList.remove("avatar-scroll-down");
+    }
+
+    lastScrollY.current = currentScroll;
+  };
+
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
+
 
   return (
     <section className="home-container" id="home">
@@ -69,7 +127,7 @@ export default function Home() {
       </div>
 
       {/* RIGHT SIDE AVATAR */}
-      <div className="home-right fade-in delay-5">
+      <div className="home-right fade-in delay-5" ref={avatarRef}>
         <div className="avatar-circle">
           <img src={avatar} alt="avatar" />
         </div>

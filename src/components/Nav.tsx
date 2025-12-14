@@ -102,7 +102,7 @@ export default function Nav() {
 
           <li ref={aboutRef} className={`about ${isDropdownOpen ? "open" : ""}`}>
             <a href="#about" onClick={toggleDropdown}>About</a>
-            <ul ref={dropdownRef} className="dropdown">
+            {/* <ul ref={dropdownRef} className="dropdown">
               <li><a href="#skills">Skills</a></li>
               <li><a href="#education">Education</a></li>
               <li><a href="#certification">Certification</a></li>
@@ -110,7 +110,7 @@ export default function Nav() {
               <li><a href="#experience">Experience</a></li>
               <li><a href="#journal">Journal</a></li>
               <li><a href="#gallery">Gallery</a></li>
-            </ul>
+            </ul> */}
           </li>
 
           <li><a href="#contact">Contact</a></li>
@@ -136,9 +136,9 @@ export default function Nav() {
 
         <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
         <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-        <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
+        {/* <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
         <a href="#education" onClick={() => setIsMobileMenuOpen(false)}>Education</a>
-        <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Experience</a>
+        <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Experience</a> */}
         <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
       </div>
 

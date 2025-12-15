@@ -75,8 +75,8 @@ const certificationData: Cert[] = [
       "Certificate of Recognition from CET TechnoFair. First time joining a contest and we won the title as champions!! It was a really cool experience—I didn’t know what the problems would be, but I’m thankful for my OG team!! LEZZGOOO!! They were the brains of the team who dealt with the logic of the competition. My role was to understand, take notes, and support them while they figured out how to solve the problems. I wasn’t able to contribute much, but they still hyped me up and included me until we got our awards. Thank you, TEAM TERNARY!",
   },
   {
-    title: "Academic Excellence Dean's Lister",
-    issuer: "Second Honor",
+    title: "Third Honor Certificate",
+    issuer: "Dean's Lister",
     year: "2024",
     image: "/certificates/dl2024.png",
     description:

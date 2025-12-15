@@ -1,8 +1,7 @@
 import "../styles/pages/Education.css";
 import { useState } from "react";
 import { useEffect } from "react";
-
-
+import { useRef } from "react";
 
 const educationData = [
     {
@@ -61,7 +60,12 @@ const educationData = [
 ];
 
 
+
+
 export default function Education() {
+    const touchStartY = useRef<number>(0);
+    const holdTimer = useRef<number | null>(null);
+    const HOLD_DELAY = 350; // ms (adjust if you want)
 
     const [preview, setPreview] = useState({
         show: false,
@@ -96,6 +100,41 @@ export default function Education() {
         });
     };
 
+    useEffect(() => {
+        const imagesToPreload = educationData.flatMap((edu) =>
+            edu.hoverImages?.length ? edu.hoverImages : []
+        );
+
+        imagesToPreload.forEach((src) => {
+            const img = new Image();
+            img.src = src;
+        });
+    }, []);
+
+    useEffect(() => {
+        if (!preview.show) return;
+
+        const scrollY = window.scrollY;
+
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+        document.body.style.width = "100%";
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.position = "";
+            document.body.style.top = "";
+            document.body.style.left = "";
+            document.body.style.right = "";
+            document.body.style.width = "";
+            document.body.style.overflow = "";
+
+            window.scrollTo(0, scrollY);
+        };
+    }, [preview.show]);
+
 
 
     return (
@@ -111,43 +150,81 @@ export default function Education() {
                     <div
                         className="education-card"
                         key={index}
-
-                        /* Desktop */
-                        onMouseEnter={(e) =>
-                            setPreview({
-                                show: true,
-                                x: e.clientX,
-                                y: e.clientY,
-                                images: edu.hoverImages?.length ? edu.hoverImages : [edu.image],
-                                index: 0,
-                                status: edu.status.toLowerCase(),
-                            })
-                        }
-                        onMouseMove={(e) =>
-                            setPreview((prev) => ({
-                                ...prev,
-                                x: e.clientX,
-                                y: e.clientY,
-                            }))
-                        }
-                        onMouseLeave={() =>
-                            setPreview((prev) => ({ ...prev, show: false }))
-                        }
-
-                        /* Mobile */
-                        onTouchStart={() => showMobilePreview(edu)}
-                        onTouchEnd={() =>
-                            setPreview((prev) => ({ ...prev, show: false }))
-                        }
-                        onTouchCancel={() =>
-                            setPreview((prev) => ({ ...prev, show: false }))
-                        }
                     >
 
-
-
                         {/* Image */}
-                        <div className="edu-image">
+                        <div
+                            className="edu-image"
+
+                            /* Desktop */
+                            onMouseEnter={(e) =>
+                                setPreview({
+                                    show: true,
+                                    x: e.clientX,
+                                    y: e.clientY,
+                                    images: edu.hoverImages?.length ? edu.hoverImages : [edu.image],
+                                    index: 0,
+                                    status: edu.status.toLowerCase(),
+                                })
+                            }
+                            onMouseMove={(e) =>
+                                setPreview((prev) => ({
+                                    ...prev,
+                                    x: e.clientX,
+                                    y: e.clientY,
+                                }))
+                            }
+                            onMouseLeave={() =>
+                                setPreview((prev) => ({ ...prev, show: false }))
+                            }
+
+                            /* Mobile */
+                            onTouchStart={(e) => {
+                                touchStartY.current = e.touches[0].clientY;
+
+                                holdTimer.current = window.setTimeout(() => {
+                                    showMobilePreview(edu);
+                                }, HOLD_DELAY);
+                            }}
+
+                            onTouchMove={(e) => {
+                                const currentY = e.touches[0].clientY;
+                                const deltaY = Math.abs(currentY - touchStartY.current);
+
+                                // User is scrolling → cancel hold + hide preview
+                                if (deltaY > 12) {
+                                    if (holdTimer.current) {
+                                        clearTimeout(holdTimer.current);
+                                        holdTimer.current = null;
+                                    }
+
+                                    setPreview((prev) => ({ ...prev, show: false }));
+                                }
+                            }}
+
+                            onTouchEnd={() => {
+                                // Finger lifted before HOLD_DELAY → cancel
+                                if (holdTimer.current) {
+                                    clearTimeout(holdTimer.current);
+                                    holdTimer.current = null;
+                                }
+
+                                setPreview((prev) => ({ ...prev, show: false }));
+                            }}
+
+                            onTouchCancel={() => {
+                                if (holdTimer.current) {
+                                    clearTimeout(holdTimer.current);
+                                    holdTimer.current = null;
+                                }
+
+                                setPreview((prev) => ({ ...prev, show: false }));
+                            }}
+
+
+                        >
+                            <p className="hover-hint">Hover to view</p>
+                            <p className="hold-hint">Hold to view</p>
                             <img src={edu.image} alt={edu.school} />
                         </div>
 

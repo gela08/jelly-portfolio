@@ -30,7 +30,7 @@ const certificationData: Cert[] = [
     title: "C++ Programming",
     issuer: "SkillUp",
     year: "2023",
-    image: "/certificates/cpp.png",
+    image: "/certificates/introductiontoc++.png",
     description:
       "Introductory C++ programming covering syntax, logic, and problem solving.",
   },

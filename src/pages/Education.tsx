@@ -112,7 +112,10 @@ export default function Education() {
     }, []);
 
     useEffect(() => {
-        if (!preview.show) return;
+        // ✅ Apply only on mobile
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        if (!preview.show || !isMobile) return;
 
         const scrollY = window.scrollY;
 
@@ -134,6 +137,7 @@ export default function Education() {
             window.scrollTo(0, scrollY);
         };
     }, [preview.show]);
+
 
 
 

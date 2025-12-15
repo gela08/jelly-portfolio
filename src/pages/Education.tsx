@@ -35,11 +35,11 @@ const educationData = [
         year: "Jun 2017 – Mar 2021",
         status: "Completed",
         image: "/education/hcdcbedlogo.png",
-        // hoverImages: [
-        //     "/education/hcdcbed-campus1.jpg",
-        //     "/education/hcdcbed-classroom1.jpg",
-        //     "/education/hcdcbed-certificate1.jpg",
-        // ],
+        hoverImages: [
+            // "/education/hcdcbed-campus1.jpg",
+            // "/education/hcdcbed-classroom1.jpg",
+            // "/education/hcdcbed-certificate1.jpg",
+        ],
     },
     {
         title: "Elementary School",
@@ -50,9 +50,11 @@ const educationData = [
         hoverImages: [
             "/education/hcdcbed-campus.png",
             "/education/hcdcbed-classroom.jpg",
+            "/education/hcdcbed-classroom3.png",
             "/education/hcdcbed-schoolevent.jpg",
             "/education/hcdcbed-event.jpg",
             "/education/hcdcbed-classpic.jpg",
+            "/education/hcdcbed-classroom6.png",
             // "/education/hcdcbed-certificate.jpg",
         ],
     }

@@ -34,6 +34,7 @@
   width: max-content;
   animation: scroll 26s linear infinite;
   padding-top: 30px;
+  padding-bottom: 30px;
 
   animation: scroll var(--scroll-duration, 26s) linear infinite;
 }

@@ -49,14 +49,29 @@
 }
 
 /* Image */
-.edu-image img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 16px;
+.edu-image {
+  width: 200px;
+  height: 200px;
 
-  box-shadow: 0 0 18px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: radial-gradient(
+    circle at top,
+    rgba(255,255,255,0.15),
+    rgba(255,255,255,0.05)
+  );
+
+  border-radius: 20px;
 }
+
+.edu-image img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain; /* 🔥 KEY FIX */
+}
+
 
 /* Content */
 .edu-content {
@@ -201,9 +216,7 @@
 
 /* Disable on mobile */
 @media (max-width: 768px) {
-  .edu-hover-preview {
-    display: none;
-  }
+  
 }
 
 /* Responsive */
@@ -215,5 +228,14 @@
 
   .edu-content {
     text-align: center;
+  }
+  
+  .edu-hover-preview {
+    display: none;
+  }
+
+  .edu-hover-preview {
+    width: 260px;
+    height: 170px;
   }
 }

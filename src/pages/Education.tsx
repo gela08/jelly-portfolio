@@ -85,6 +85,18 @@ export default function Education() {
         return () => clearInterval(interval);
     }, [preview.show, preview.images]);
 
+    const showMobilePreview = (edu: any) => {
+        setPreview({
+            show: true,
+            x: window.innerWidth / 2 - 150,
+            y: window.innerHeight / 2 - 120,
+            images: edu.hoverImages?.length ? edu.hoverImages : [edu.image],
+            index: 0,
+            status: edu.status.toLowerCase(),
+        });
+    };
+
+
 
     return (
         <section id="education" className="education-section">
@@ -99,20 +111,18 @@ export default function Education() {
                     <div
                         className="education-card"
                         key={index}
+
+                        /* Desktop */
                         onMouseEnter={(e) =>
                             setPreview({
                                 show: true,
                                 x: e.clientX,
                                 y: e.clientY,
-                                images: edu.hoverImages?.length
-                                    ? edu.hoverImages
-                                    : [edu.image],
+                                images: edu.hoverImages?.length ? edu.hoverImages : [edu.image],
                                 index: 0,
                                 status: edu.status.toLowerCase(),
                             })
                         }
-
-
                         onMouseMove={(e) =>
                             setPreview((prev) => ({
                                 ...prev,
@@ -123,7 +133,17 @@ export default function Education() {
                         onMouseLeave={() =>
                             setPreview((prev) => ({ ...prev, show: false }))
                         }
+
+                        /* Mobile */
+                        onTouchStart={() => showMobilePreview(edu)}
+                        onTouchEnd={() =>
+                            setPreview((prev) => ({ ...prev, show: false }))
+                        }
+                        onTouchCancel={() =>
+                            setPreview((prev) => ({ ...prev, show: false }))
+                        }
                     >
+
 
 
                         {/* Image */}

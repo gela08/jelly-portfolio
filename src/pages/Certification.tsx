@@ -84,6 +84,8 @@ const certificationData: Cert[] = [
   },
 ];
 
+/* -------------------- Desktop tilt -------------------- */
+
 const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
   const card = e.currentTarget;
   const rect = card.getBoundingClientRect();
@@ -100,27 +102,89 @@ const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
 
 const resetTilt = (e: React.MouseEvent<HTMLDivElement>) => {
   const card = e.currentTarget;
-  card.style.setProperty("--rx", `0deg`);
-  card.style.setProperty("--ry", `0deg`);
+  card.style.setProperty("--rx", "0deg");
+  card.style.setProperty("--ry", "0deg");
 };
-
 
 export default function Certification() {
   const [activeCert, setActiveCert] = useState<Cert | null>(null);
-  const [closing, setClosing] = useState(false);
 
-  // Mobile preview only
+  /* -------------------- modal drag (Settings-style) -------------------- */
+
+  const modalRef = useRef<HTMLDivElement>(null);
+  const startY = useRef(0);
+  const lastY = useRef(0);
+  const lastTime = useRef(0);
+  const velocity = useRef(0);
+  const dragging = useRef(false);
+
+  const MIN_CLOSE_DRAG = 120;
+  const VELOCITY_CLOSE_THRESHOLD = 1.2;
+
+  const dragStart = (e: React.TouchEvent | React.MouseEvent) => {
+    dragging.current = true;
+    const y = "touches" in e ? e.touches[0].clientY : e.clientY;
+
+    startY.current = y;
+    lastY.current = y;
+    lastTime.current = performance.now();
+
+    if (modalRef.current) {
+      modalRef.current.style.transition = "none";
+    }
+  };
+
+  const dragMove = (e: React.TouchEvent | React.MouseEvent) => {
+    if (!dragging.current || !modalRef.current) return;
+
+    const y = "touches" in e ? e.touches[0].clientY : e.clientY;
+    const delta = y - startY.current;
+    if (delta < 0) return;
+
+    const now = performance.now();
+    velocity.current = (y - lastY.current) / (now - lastTime.current);
+
+    lastY.current = y;
+    lastTime.current = now;
+
+    modalRef.current.style.transform = `translateY(${delta}px)`;
+  };
+
+  const dragEnd = () => {
+    dragging.current = false;
+    if (!modalRef.current) return;
+
+    const fast = velocity.current > VELOCITY_CLOSE_THRESHOLD;
+    const far = lastY.current - startY.current > MIN_CLOSE_DRAG;
+
+    if (fast || far) {
+      modalRef.current.style.transition =
+        "0.35s cubic-bezier(.33,1.07,.53,1.29)";
+      modalRef.current.style.transform = "translateY(100vh)";
+      setTimeout(() => setActiveCert(null), 250);
+    } else {
+      modalRef.current.style.transition =
+        "0.4s cubic-bezier(.2,1.15,.45,1.35)";
+      modalRef.current.style.transform = "translateY(0)";
+    }
+  };
+
+  /* -------------------- mobile hold logic -------------------- */
 
   const holdTimer = useRef<number | null>(null);
-  const didHold = useRef(false);
+  const isHolding = useRef(false);
   const [heldCard, setHeldCard] = useState<number | null>(null);
 
+  const isMobile = () =>
+    window.matchMedia("(max-width: 768px)").matches;
+
   const handleTouchStart = (index: number) => {
-    didHold.current = false;
+    isHolding.current = false;
 
     holdTimer.current = window.setTimeout(() => {
-      didHold.current = true;
+      isHolding.current = true;
       setHeldCard(index);
+      navigator.vibrate?.(8);
     }, 300);
   };
 
@@ -129,9 +193,9 @@ export default function Certification() {
       clearTimeout(holdTimer.current);
       holdTimer.current = null;
     }
-    setHeldCard(null);
-  };
 
+    setTimeout(() => setHeldCard(null), 350);
+  };
 
   return (
     <section id="certification" className="cert-section">
@@ -145,17 +209,13 @@ export default function Certification() {
           <div
             key={index}
             className="cert-item"
-
             onMouseMove={handleMouseMove}
             onMouseLeave={resetTilt}
-
             onTouchStart={() => handleTouchStart(index)}
             onTouchEnd={handleTouchEnd}
-
             onClick={() => {
-              if (!didHold.current) {
-                setActiveCert(cert);
-              }
+              if (isMobile() && isHolding.current) return;
+              setActiveCert(cert);
             }}
           >
             <div className={`cert-card ${heldCard === index ? "held" : ""}`}>
@@ -168,31 +228,39 @@ export default function Certification() {
               <div className="cert-face cert-back">
                 <img src={cert.image} alt={cert.title} />
               </div>
+
+              <div className="cert-hint">
+                <span></span>
+                <span></span>
+              </div>
+
             </div>
           </div>
         ))}
       </div>
 
+      {/* -------------------- Modal -------------------- */}
 
-      {/* Mobile Preview */}
-
-
-      {/* Modal */}
+        
       {activeCert && (
         <div
-          className={`cert-modal-overlay ${closing ? "closing" : "show"}`}
-          onClick={() => {
-            setClosing(true);
-            setTimeout(() => {
-              setActiveCert(null);
-              setClosing(false);
-            }, 250);
-          }}
+          className="cert-modal-overlay show"
+          onClick={() => setActiveCert(null)}
         >
           <div
-            className={`cert-modal ${closing ? "closing" : ""}`}
+            ref={modalRef}
+            className="cert-modal"
             onClick={(e) => e.stopPropagation()}
+            onMouseDown={dragStart}
+            onMouseMove={dragMove}
+            onMouseUp={dragEnd}
+            onMouseLeave={dragEnd}
+            onTouchStart={dragStart}
+            onTouchMove={dragMove}
+            onTouchEnd={dragEnd}
           >
+            <div className="modal-handle" />
+
             <img
               src={activeCert.image}
               alt={activeCert.title}

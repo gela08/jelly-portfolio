@@ -3,8 +3,13 @@ import SettingsModal from "./Settings";
 import "../styles/components/Nav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Nav() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -82,9 +87,9 @@ export default function Nav() {
   return (
     <nav className="nav">
       <div className="nav-inner">
-        <a className="brand" href="#home">
+        <Link className="brand" to="/">
           jelly
-        </a>
+        </Link>
 
         {/* Hamburger Icon */}
         <div
@@ -97,12 +102,12 @@ export default function Nav() {
         </div>
 
         {/* Desktop Nav */}
-        <ul className="nav-links">
+        {/* <ul className="nav-links">
           <li><a href="#home">Home</a></li>
 
           <li ref={aboutRef} className={`about ${isDropdownOpen ? "open" : ""}`}>
             <a href="#about" onClick={toggleDropdown}>About</a>
-            {/* <ul ref={dropdownRef} className="dropdown">
+           <ul ref={dropdownRef} className="dropdown">
               <li><a href="#skills">Skills</a></li>
               <li><a href="#education">Education</a></li>
               <li><a href="#certification">Certification</a></li>
@@ -110,11 +115,30 @@ export default function Nav() {
               <li><a href="#experience">Experience</a></li>
               <li><a href="#journal">Journal</a></li>
               <li><a href="#gallery">Gallery</a></li>
-            </ul> */}
+            </ul>
           </li>
 
           <li><a href="#contact">Contact</a></li>
+        </ul> */}
+
+        <ul className="nav-links">
+          <li>
+            {isHome ? <a href="#home">Home</a> : <Link to="/#home">Home</Link>}
+          </li>
+
+          <li ref={aboutRef} className={`about ${isDropdownOpen ? "open" : ""}`}>
+            {isHome ? (
+              <a href="#about" onClick={toggleDropdown}>About</a>
+            ) : (
+              <Link to="/#about">About</Link>
+            )}
+          </li>
+
+          <li>
+            {isHome ? <a href="#contact">Contact</a> : <Link to="/#contact">Contact</Link>}
+          </li>
         </ul>
+
 
         {/* Settings Icon */}
         <button className="settings-icon" onClick={toggleModal}>
@@ -123,24 +147,41 @@ export default function Nav() {
       </div>
 
       {/* Dark overlay behind mobile menu */}
-      <div
-        className={`sidebar-overlay ${isMobileMenuOpen ? "show" : ""}`}
-        onClick={() => setIsMobileMenuOpen(false)}
-      ></div>
-
-      {/* Mobile Sidebar */}
       <div className={`mobile-sidebar ${isMobileMenuOpen ? "open" : ""}`}>
-        <button className="close-sidebar" onClick={() => setIsMobileMenuOpen(false)}>
-          ×
-        </button>
+  {/* Sidebar Header */}
+  <div className="mobile-sidebar-header">
+    <span className="mobile-brand">jelly</span>
+    <button
+      className="close-sidebar"
+      onClick={() => setIsMobileMenuOpen(false)}
+    >
+      ×
+    </button>
+  </div>
 
-        <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
+  <ul className="mobile-nav">
+    <li onClick={() => setIsMobileMenuOpen(false)}>
+      {isHome ? <a href="#home">Home</a> : <Link to="/#home">Home</Link>}
+    </li>
+
+    <li onClick={() => setIsMobileMenuOpen(false)}>
+      {isHome ? <a href="#about">About</a> : <Link to="/#about">About</Link>}
+    </li>
+
+    <li onClick={() => setIsMobileMenuOpen(false)}>
+      {isHome ? <a href="#contact">Contact</a> : <Link to="/#contact">Contact</Link>}
+    </li>
+  </ul>
+</div>
+
+
+
+      {/* <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
         <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-        {/* <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
+        <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
         <a href="#education" onClick={() => setIsMobileMenuOpen(false)}>Education</a>
-        <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Experience</a> */}
-        <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
-      </div>
+        <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Experience</a>
+        <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a> */}
 
       {/* Settings Modal */}
       <SettingsModal

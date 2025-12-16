@@ -1,0 +1,217 @@
+/* ==============================
+   PAGE
+============================== */
+
+.projects-page {
+  padding: 120px 10% 160px;
+}
+
+.projects-page h1 {
+  text-align: center;
+  font-size: 48px;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.projects-sub {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 120px;
+}
+
+/* ==============================
+   TIMELINE WRAPPER
+============================== */
+
+.projects-timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  perspective: 1200px;
+}
+
+.projects-timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  bottom: 40px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255,255,255,0.12),
+    transparent
+  );
+}
+
+/* ==============================
+   ROWS
+============================== */
+
+.project-row {
+  position: relative; /* REQUIRED */
+  display: flex;
+  margin-bottom: 160px;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.project-row.left {
+  justify-content: flex-start;
+}
+
+.project-row.right {
+  justify-content: flex-end;
+}
+
+
+/* ==============================
+   CARD
+============================== */
+
+.project-box {
+  position: relative;
+  width: 383px;
+  height: 200px;
+  padding: 40px;
+  border-radius: 26px;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(16px);
+
+  box-shadow: 0 0 24px rgba(0,0,0,0.18);
+
+  cursor: pointer;
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+
+.project-box:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--accent);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.4),
+    0 0 30px rgba(var(--accent-rgb, 120,120,255), 0.35);
+}
+
+
+
+.project-year {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.project-box h2 {
+  font-size: 22px;
+  margin: 10px 0 12px;
+  color: var(--text);
+}
+
+.project-box p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+
+.project-box span {
+  display: inline-block;
+  margin-top: 18px;
+  font-weight: 500;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.project-box:hover span {
+  transform: translateX(8px);
+}
+
+/* ==============================
+   DOT
+============================== */
+
+.projects-timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 125px; /* aligns with card top — tweak if needed */
+  transform: translateX(-50%);
+
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+
+  background: var(--accent);
+  pointer-events: none;
+
+  box-shadow:
+    0 0 0 6px rgba(255,255,255,0.06),
+    0 0 20px var(--accent);
+
+  z-index: 3;
+}
+
+
+/* Left */
+/* .project-row.left .projects-timeline-dot {
+  right: 492px;
+  top: 78%;
+  
+} */
+
+/* Right */
+/* .project-row.right .projects-timeline-dot {
+  left: 493px;
+  top: 18%;
+} */
+
+
+/* ==============================
+   LINK
+============================== */
+
+.project-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-weight: 500;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.project-box:hover .project-link {
+  transform: translateX(8px);
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media (max-width: 850px) {
+  .projects-timeline-line {
+    left: 28px;
+  }
+
+  .project-row {
+    justify-content: flex-start !important;
+    padding-left: 60px;
+  }
+
+  .project-box {
+    width: 100%;
+  }
+
+  .projects-timeline-dot {
+    left: -46px !important;
+    right: auto;
+  }
+}
+

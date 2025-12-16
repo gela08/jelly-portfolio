@@ -1,0 +1,190 @@
+.works-section {
+  padding: 120px 10% 160px;
+  text-align: center;
+}
+
+.works-title {
+  font-size: 40px;
+  color: var(--accent);
+}
+
+.works-subtitle {
+  color: var(--muted);
+  margin-bottom: 80px;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  max-width: 10000px;
+  margin: auto;
+}
+
+/* .timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  height: 485px;
+} */
+
+/* Items */
+.timeline-item {
+  position: relative;
+  display: flex;
+  width: 50%;
+  padding: 40px 0;
+  
+}
+
+.timeline-item.left {
+  justify-content: flex-end;
+}
+
+.timeline-item.right {
+  margin-left: 50.3%;
+}
+
+/* Dot */
+/* .timeline-item.left .timeline-dot {
+  right: -8px;
+}
+
+.timeline-item.right .timeline-dot {
+  left: -10px;
+  top: 20px;
+} */
+
+/* .timeline-dot {
+  position: absolute;
+  align-items: center;
+  top: 0px;
+  width: 15px;
+  height: 15px;
+  background: var(--accent);
+  border-radius: 50%;
+} */
+
+/* Card */
+.work-card {
+  top: 50px;
+  display: flex;
+  margin: 10px;
+  gap: 18px;
+  width: 1020px;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.work-card img {
+  width: 500px;
+  border-radius: 14px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.work-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: revealUp 0.7s ease forwards;
+}
+
+@keyframes revealUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button */
+.works-viewmore {
+  display: inline-block;
+  margin-top: 80px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.works-viewmore:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 798px) {
+  .timeline-line {
+    left: 30px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    margin: 0;
+    padding-left: 48px;
+    position: relative;
+  }
+
+  .timeline-item.right .timeline-dot {
+    top: 20px;
+    left: 21px;
+  }
+
+  .timeline-item.right {
+    right: 164px;
+    top: 10px;
+  }
+
+  .timeline-item.left,
+  .timeline-item.right {
+    justify-content: flex-start;
+  }
+
+  /* ✅ Center dot vertically with card */
+  .timeline-dot {
+    left: 23px;
+    right: auto;
+    transform: translateY(-50%);
+  }
+
+  .work-card {
+    max-width: 250px;
+    margin: 0;
+  }
+
+  .works-viewmore {
+    margin-top: 0px;
+    margin-right: 150px;
+    width: 150px;
+    background-color: var(--accent);
+    color: white;
+  }
+
+  .work-card img {
+  width: 250px;
+  border-radius: 14px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+  .work-card .work-info h3 {
+    display: none;
+  }
+}

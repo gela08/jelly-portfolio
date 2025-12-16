@@ -1,14 +1,15 @@
 .network-bg {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;        /* 👈 important */
   pointer-events: none;
-  background: transparent;
 }
 
 
 .app {
   position: relative;
-  z-index: 1;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
+
 

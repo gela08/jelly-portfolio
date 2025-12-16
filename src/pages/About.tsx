@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import "../styles/pages/About.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGraduationCap, faCertificate, faBriefcase, faUserTie, faBookOpen, faImages } from "@fortawesome/free-solid-svg-icons";
+import { faGraduationCap, faCertificate, faBriefcase, faBookOpen, faImages } from "@fortawesome/free-solid-svg-icons";
 import { faCode } from "@fortawesome/free-solid-svg-icons/faCode";
 
 export default function About() {
@@ -61,12 +61,12 @@ export default function About() {
             text: "Projects and professional work.",
             link: "#work"
         },
-        {
-            icon: faUserTie,
-            title: "Experience",
-            text: "Hands-on experience and roles.",
-            link: "#experience"
-        },
+        // {
+        //     icon: faUserTie,
+        //     title: "Experience",
+        //     text: "Hands-on experience and roles.",
+        //     link: "#experience"
+        // },
         {
             icon: faBookOpen,
             title: "Journal",

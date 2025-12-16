@@ -8,6 +8,12 @@ import "./styles/components/Network-bg.css";
 import Skills from './pages/Skills'
 import Education from './pages/Education'
 import Certification from './pages/Certification'
+import Works from './pages/Works'
+import { Route, Routes } from 'react-router-dom'
+import Projects from './pages/Projects'
+import Gallery from './pages/Gallery'
+import Journal from './pages/Journal'
+
 
 function App() {
 
@@ -15,13 +21,29 @@ function App() {
    <div className="app">
       <NetworkBackground />
       <Nav />
-      <main> 
-        <Home />
-        <About />
-        <Skills />
-        <Education />
-        <Certification />
-      </main>
+      
+      <Routes>
+        {/* One-page portfolio */}
+        <Route
+          path="/"
+          element={
+            <main>
+              <Home />
+              <About />
+              <Skills />
+              <Education />
+              <Certification />
+              <Works />
+              <Journal />
+              <Gallery />
+            </main>
+          }
+        />
+
+        {/* Separate projects page */}
+        <Route path="/projects" element={<Projects />} />
+      </Routes>
+      
       <Footer />
     </div>
   )

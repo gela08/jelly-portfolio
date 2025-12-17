@@ -36,12 +36,12 @@ export default function Works() {
 
         {works.map((work, index) => (
           <div
-            // key={index}
+            key={index}
             // className={`timeline-item ${
             //   index % 2 === 0 ? "left" : "right"
             // } reveal`}
           >
-            {/* <div className="timeline-dot" /> */}
+            <div className="timeline-dot" />
 
             <a
               href={work.link}

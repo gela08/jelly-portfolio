@@ -127,11 +127,11 @@
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 40px 80px rgba(0,0,0,0.5);
 
-  animation: certSlideUp 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+  animation: SlideUp 0.45s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .journ-modal.closing {
-  animation: certSlideDown 0.25s cubic-bezier(.33,1.07,.53,1.29) forwards;
+  animation: SlideDown 0.25s cubic-bezier(.33,1.07,.53,1.29) forwards;
 }
 
 .journ-modal-image {
@@ -318,7 +318,7 @@
     gap: 16px;
 
     border-radius: 22px 22px 0 0;    /* 👈 bottom sheet feel */
-    animation: certSlideUp 0.35s cubic-bezier(.19,1,.22,1);
+    animation: SlideUp 0.35s cubic-bezier(.19,1,.22,1);
   }
 
   /* ---------- IMAGE ---------- */

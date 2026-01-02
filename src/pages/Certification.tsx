@@ -1,5 +1,5 @@
 import "../styles/pages/Certification.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 type Cert = {
   title: string;
@@ -129,6 +129,25 @@ export default function Certification() {
 
   const MIN_CLOSE_DRAG = 120;
   const VELOCITY_CLOSE_THRESHOLD = 1.2;
+
+  useEffect(() => {
+  if (activeCert) {
+    // Lock background scroll
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+  } else {
+    // Restore scroll
+    document.body.style.overflow = "";
+    document.body.style.touchAction = "";
+  }
+
+  // Cleanup (important)
+  return () => {
+    document.body.style.overflow = "";
+    document.body.style.touchAction = "";
+  };
+}, [activeCert]);
+
 
   const dragStart = (e: React.TouchEvent | React.MouseEvent) => {
     dragging.current = true;
@@ -268,7 +287,7 @@ export default function Certification() {
             onTouchMove={dragMove}
             onTouchEnd={dragEnd}
           >
-            <div className="modal-handle" />
+            <div className="cert-modal-handle" />
 
             <img
               src={activeCert.image}

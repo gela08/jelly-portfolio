@@ -59,7 +59,7 @@ const eduGallery = [
   },
 ];
 
-export default function EducationGallery() {
+export default function Gallery() {
   return (
     <section id="education-gallery" className="edu-gallery-section">
       <h2 className="edu-gallery-title">Educational Tour</h2>

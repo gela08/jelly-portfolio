@@ -76,13 +76,120 @@
   transform: scale(1.15);
 }
 
+
+.journ-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.journ-modal-overlay.show {
+  opacity: 1;
+}
+
+.journ-modal-overlay.closing {
+  opacity: 0;
+}
+
+.journ-modal {
+  max-width: 1100px;
+  height: 85vh;
+  width: 100%;
+  padding: 28px;
+  gap: 28px;
+
+  display: flex;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15,20,35,0.95),
+      rgba(8,12,22,0.95)
+    );
+
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+
+  animation: certSlideUp 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.journ-modal.closing {
+  animation: certSlideDown 0.25s cubic-bezier(.33,1.07,.53,1.29) forwards;
+}
+
+.journ-modal-image {
+  width: 600px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.journ-modal-content {
+  text-align: left;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+  row-gap: 6px;
+
+  height: auto;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.journ-modal-content h3 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  margin-top: 50px;
+}
+
+.journ-modal-content .issuer,
+.journ-modal-content .description {
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.journ-modal-content .year {
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+.journ-modal-content .oble {
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.journ-modal-content .description {
+  line-height: 1.6;
+  margin: 0;
+  margin-bottom: 10px;
+  padding-left: 16px;
+  padding-right: 26px;
+  text-align: justify; 
+}
+
 /* =========================================================
    JOURNAL MODAL IMAGE (PORTRAIT ONLY)
 ========================================================= */
 
 .journal-modal-image {
   width: 360px;          /* 👈 portrait width */
-  max-height: 75vh;      /* 👈 tall but contained */
+  max-height: 80vh;      /* 👈 tall but contained */
   height: auto;
 
   object-fit: contain;   /* 👈 NO cropping */
@@ -91,6 +198,32 @@
   border-radius: 18px;
   flex-shrink: 0;
 }
+
+/* .journ-modal-content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+  row-gap: 6px;
+
+  height: auto;
+  max-height: 80vh;
+  overflow-y: auto;
+} */
+
+/* .journ-modal-content .description {
+  margin: 0;
+  margin-bottom: 10px;
+  padding-left: 16px;
+  padding-right: 26px;
+  text-align: justify; 
+  line-height: 1.6;
+} */
+
+/* .journ-modal-content p {
+  margin-bottom: -50px;
+} */
+
 
 
 

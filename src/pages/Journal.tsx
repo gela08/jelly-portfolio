@@ -1,7 +1,9 @@
 import "../styles/pages/Journal.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+
 
 type Journal = {
+    journimage: string;
     image: string;
     title: string;
     subtitle: string;
@@ -12,6 +14,7 @@ type Journal = {
 
 const journalData: Journal[] = [
     {
+        journimage: "/journal/up.png",
         image: "/journal/UPIT.png",
         title: "UP BUSINESS INCUBATOR FOR IT",
         subtitle: "Cebu Tour",
@@ -23,6 +26,7 @@ const journalData: Journal[] = [
             "I learned that businesses doesn't go famous right after making it. Somtimes or most of the time, business startups need help from business-minded mentors such as this UP Business Incubator. Some business-minded people start their business with no or less knowledge but with the help of programs and trainings, it fuels their drive to continue in making their business.",
     },
     {
+        journimage: "/journal/dynata.png",
         image: "/journal/DYNATAPH.png",
         title: "DYNATA PHILIPPINES INC.",
         subtitle: "Cebu Tour",
@@ -34,6 +38,7 @@ const journalData: Journal[] = [
             "I learned about the office environments, health, and safety, and the different haxards that can occur in the office. Dynata provides marketing surveys and political surveys in the US. They have different clients from all over the Philippines and in the US. They have Market Research, Consumer Products & Services, Media, Universities, and even the Government.",
     },
     {
+        journimage: "/journal/rivan.png",
         image: "/journal/RivanIT.png",
         title: "RIVAN IT CEBU",
         subtitle: "Cebu Tour",
@@ -47,6 +52,7 @@ const journalData: Journal[] = [
             "I learned that you need specific requirements certifications such as ccna, ccnp, sap, and other certain certifications in order to apply for a job. I also learned that everything can be looked up in youtube about everything you need to learn about a certain job. The most successful person can succeed if they knew how to take notes. Make learning fun, watch youtube, and always take notes not for your parents, for friends but for you. I also learned about som cli commands in telephones, how to communicate with the other telephone but with some fxs but different ports.",
     },
     {
+        journimage: "/journal/mata.png",
         image: "/journal/MataTech.png",
         title: "MATA TECHONOLOGIES, INC.",
         subtitle: "Cebu Tour",
@@ -58,6 +64,7 @@ const journalData: Journal[] = [
             "I learned that technology can be scary and useful at the same time. It can be useful even when going to destinations, it can help save some time although there might be a big impact on tour guides. Despite that it helps tourist save some time and effort and even their money. Overall, their company is making useful applications and it's impressive that they manually create it.",
     },
     {
+        journimage: "/journal/tarsier.png",
         image: "/journal/T.a.R.S.I.E.R 117.png",
         title: "T.a.R.S.I.E.R 117",
         subtitle: "Bohol Tour",
@@ -85,6 +92,25 @@ export default function Journal() {
 
     const MIN_CLOSE_DRAG = 120;
     const VELOCITY_CLOSE_THRESHOLD = 1.2;
+
+    useEffect(() => {
+  if (activeJournal) {
+    // Lock background scroll
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+  } else {
+    // Restore scroll
+    document.body.style.overflow = "";
+    document.body.style.touchAction = "";
+  }
+
+  // Cleanup (important)
+  return () => {
+    document.body.style.overflow = "";
+    document.body.style.touchAction = "";
+  };
+}, [activeJournal]);
+
 
     const dragStart = (e: React.TouchEvent | React.MouseEvent) => {
         dragging.current = true;
@@ -146,7 +172,7 @@ export default function Journal() {
                         className="journal-card"
                         onClick={() => setActiveJournal(item)}
                     >
-                        <img src={item.image} alt={item.title} />
+                        <img src={item.journimage} alt={item.title} />
                         <div className="journal-card-content">
                             <h3>{item.title}</h3>
                             <span>{item.subtitle}</span>

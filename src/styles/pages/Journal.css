@@ -26,12 +26,11 @@
 
 .journal-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 34px;
+  grid-template-columns: repeat(2, 1fr); /* 👈 only 2 big cards */
+  gap: 40px;
   max-width: 1200px;
   margin: auto;
 }
-
 
 /* =========================================================
    CARD
@@ -39,8 +38,7 @@
 
 .journal-card {
   position: relative;
-  /* height: 260px; */
-  aspect-ratio: 3 / 4; /* 👈 PORTRAIT */
+  aspect-ratio: 16 / 9; /* 👈 big wide card */
   border-radius: 22px;
   overflow: hidden;
   cursor: pointer;
@@ -50,6 +48,7 @@
     transform 0.45s cubic-bezier(.2,.8,.2,1),
     box-shadow 0.45s ease;
 }
+
 
 .journal-card:hover {
   transform: translateY(-10px);
@@ -66,14 +65,17 @@
 
 .journal-card img {
   width: 100%;
-  height: 120%;
-  object-fit: cover;
-  object-position: center top;
+  height: 100%;
+  object-fit: cover; /* 👈 fills card properly */
+  object-position: center;
+
+  transition: 
+    transform 0.6s cubic-bezier(.2,.8,.2,1);
 }
 
 
 .journal-card:hover img {
-  transform: scale(1.15);
+  transform: scale(1.05);
 }
 
 
@@ -260,15 +262,33 @@
   color: rgba(255,255,255,0.8);
 }
 
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 10px;
+  margin: 0 auto 6px;
+}
+
+.journ-modal-content {
+  overscroll-behavior: contain;
+}
+
+
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
 @media (max-width: 768px) {
-  .journal-card {
+
+  .journal-grid {
+    grid-template-columns: 1fr; /* 1 card on mobile */
+  }
+
+  /* .journal-card { */
     /* height: 220px; */
-    aspect-ratio: 2 / 3; /* slightly taller on mobile */
+    /* aspect-ratio: 2 / 3; 
   }
 
   .journal-card-content h3 {
@@ -278,5 +298,48 @@
   .journal-modal-image {
     width: 100%;
     max-height: 45vh;
+  } */
+
+   /* ---------- MODAL CONTAINER ---------- */
+  .journ-modal {
+    flex-direction: column;          /* 👈 stack vertically */
+    height: auto;
+    max-height: 92vh;
+    padding: 16px;
+    gap: 16px;
+
+    border-radius: 22px 22px 0 0;    /* 👈 bottom sheet feel */
+    animation: certSlideUp 0.35s cubic-bezier(.19,1,.22,1);
+  }
+
+  /* ---------- IMAGE ---------- */
+  .journal-modal-image {
+    width: 100%;
+    max-height: 40vh;                /* 👈 limit image height */
+    object-fit: contain;
+    border-radius: 14px;
+  }
+
+  /* ---------- CONTENT ---------- */
+  .journ-modal-content {
+    max-height: 42vh;                /* 👈 scrollable content */
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  .journ-modal-content h3 {
+    font-size: 22px;
+    margin-top: 12px;
+  }
+
+  .journ-modal-content .description {
+    font-size: 14px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .journ-modal-overlay {
+    align-items: flex-end; /* 👈 bottom sheet */
+    padding: 12px;
   }
 }

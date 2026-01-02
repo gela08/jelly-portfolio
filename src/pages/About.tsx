@@ -77,7 +77,7 @@ export default function About() {
             icon: faImages,
             title: "Gallery",
             text: "Photos and moments from my educational tour.",
-            link: "#gallery"
+            link: "#education-gallery"
         }
     ];
 

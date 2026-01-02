@@ -37,6 +37,7 @@ export default function Works() {
         {works.map((work, index) => (
           <div
             key={index}
+            className="timeline-item"
             // className={`timeline-item ${
             //   index % 2 === 0 ? "left" : "right"
             // } reveal`}
@@ -51,9 +52,11 @@ export default function Works() {
             >
               <img src={work.image} alt={work.title} />
               <div className="work-info">
-                <h3>{work.title}</h3>
-                {/* <p>{work.description}</p> */}
+                <h2>{work.title}</h2>
+                <p>{work.description}</p>
+                <span className="work-link">View Project →</span>
               </div>
+              
             </a>
           </div>
         ))}

@@ -306,7 +306,7 @@
 
 .cert-modal {
   max-width: 1100px;
-  height: 450px;
+  height: 480px;
   width: 100%;
   padding: 28px;
   gap: 28px;
@@ -348,13 +348,13 @@
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 30px;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .cert-modal-content .issuer,
 .cert-modal-content .description {
   color: var(--muted);
-  margin-bottom: 6px;
+  /* margin-bottom: 6px; */
 }
 
 .cert-modal-content .year {
@@ -365,7 +365,7 @@
 .cert-modal-content .description {
   margin-top: 18px;
   line-height: 1.6;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 

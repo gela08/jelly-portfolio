@@ -13,6 +13,7 @@ import { Route, Routes } from 'react-router-dom'
 import Projects from './pages/Projects'
 import Gallery from './pages/Gallery'
 import Journal from './pages/Journal'
+import Contact from './pages/Contact'
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <Works />
               <Journal />
               <Gallery />
+              <Contact />
             </main>
           }
         />

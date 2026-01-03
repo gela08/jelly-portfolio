@@ -1,0 +1,232 @@
+.contact-section {
+  padding: 160px 10% 200px;
+  position: relative;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(80,120,255,0.08), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(80,120,255,0.06), transparent 55%);
+  pointer-events: none;
+}
+
+.contact-container {
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+}
+
+/* Header */
+.contact-header {
+  margin-bottom: 70px;
+}
+
+.contact-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact-header h1 {
+  font-size: 48px;
+  margin: 14px 0 18px;
+  color: var(--text);
+}
+
+.contact-header p {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* Layout */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+/* Info */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.info-block span {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.info-block p {
+  margin-top: 6px;
+  font-size: 16px;
+  color: var(--text);
+}
+
+/* Resume */
+.resume-link {
+  margin-top: 32px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  width: fit-content;
+  position: relative;
+}
+
+.resume-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.resume-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Form */
+.contact-form {
+  display: grid;
+  gap: 18px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+  font-size: 14px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 0 18px rgba(80,120,255,0.25);
+}
+
+/* Button */
+.contact-form button {
+  margin-top: 8px;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(80,120,255,0.45);
+}
+
+.contact-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Status */
+.form-status {
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+.form-status.success { color: #7ef29d; }
+.form-status.error { color: #ff7a7a; }
+
+/* Success */
+.success-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.checkmark {
+  width: 38px;
+  height: 38px;
+  stroke: #7ef29d;
+  stroke-width: 3;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: stroke 0.6s ease forwards;
+}
+
+.checkmark-check {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.4s 0.6s ease forwards;
+}
+
+/* Reset */
+.reset-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.reset-btn:hover {
+  color: var(--text);
+}
+
+/* Utilities */
+.honeypot { display: none; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stroke {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .contact-header h1 {
+    font-size: 38px;
+  }
+}

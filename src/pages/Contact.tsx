@@ -86,7 +86,7 @@ export default function Contact() {
                             rel="noopener noreferrer"
                             className="resume-link"
                         >
-                            View Resume →
+                            View CV →
                         </a>
                     </div>
 

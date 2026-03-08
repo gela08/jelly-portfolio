@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 type Work = {
   title: string;
   description: string;
+  subtitle: string;
   image: string;
   link: string;
 };
@@ -11,12 +12,14 @@ type Work = {
 const works: Work[] = [
   {
     title: "Prince Law Associates",
+    subtitle: "Part-time Work", 
     description: "Designed and published multiple pages using ShowIt",
     image: "/projects/princelawassociates.png",
     link: "https://princelawassociates.com/real-estate",
   },
   {
     title: "Riverside Oaks Golf Resort",
+    subtitle: "Part-time Work", 
     description: "Created a responsive page using WordPress",
     image: "/projects/riversideoaks.png",
     link: "https://wordpress-1540755-5959318.cloudwaysapps.com/weddings/",
@@ -53,6 +56,7 @@ export default function Works() {
               <img src={work.image} alt={work.title} />
               <div className="work-info">
                 <h2>{work.title}</h2>
+                <p className="work-subtitle">{work.subtitle}</p>
                 <p>{work.description}</p>
                 <span className="work-link">View Project →</span>
               </div>

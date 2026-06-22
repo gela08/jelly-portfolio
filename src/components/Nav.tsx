@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import SettingsModal from "./Settings";
 import "../styles/components/Nav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,65 +9,34 @@ export default function Nav() {
   const location = useLocation();
   const isHome = location.pathname === "/";
 
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const dropdownRef = useRef<HTMLUListElement | null>(null);
-  const aboutRef = useRef<HTMLLIElement | null>(null);
-
-  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
   const toggleModal = () => setIsModalOpen((prev) => !prev);
 
-  // Theme handler
+  // Theme handlers aligned directly to your global dataset attributes
   const handleChangeTheme = (theme: string) => {
     if (theme === "system") {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches;
-      document.documentElement.setAttribute(
-        "data-theme",
-        prefersDark ? "dark" : "light"
-      );
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
       return;
     }
-
     if (theme === "dim") {
-      document.documentElement.setAttribute("data-theme", "light");
+      document.documentElement.setAttribute("data-theme", "light"); 
       return;
     }
-
     if (theme === "lights-out") {
       document.documentElement.setAttribute("data-theme", "dark");
       return;
     }
-
     document.documentElement.setAttribute("data-theme", theme);
   };
 
-  // Accent Color
   const handleChangeColor = (color: string) => {
     document.documentElement.style.setProperty("--accent", color);
   };
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        aboutRef.current &&
-        !aboutRef.current.contains(event.target as Node) &&
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Add shadow on scroll
+  // Shadow indicator on scroll
   useEffect(() => {
     const handleScroll = () => {
       const nav = document.querySelector(".nav");
@@ -79,117 +48,90 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Disable body scroll when sidebar is open
+  // Lock background scroll when mobile sidebar layout is drawn
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "auto";
   }, [isMobileMenuOpen]);
 
-  return (
-    <nav className="nav">
-      <div className="nav-inner">
-        <Link className="brand" to="/">
-          jelly
-        </Link>
+  const renderLinks = (closeMobileMenu = false) => {
+    const onClickHandler = closeMobileMenu ? () => setIsMobileMenuOpen(false) : undefined;
+    const links = [
+      { hash: "#home", label: "Home" },
+      { hash: "#about", label: "About" },
+      { hash: "#contact", label: "Contact" },
+    ];
 
-        {/* Hamburger Icon */}
-        <div
-          className={`hamburger ${isMobileMenuOpen ? "open" : ""}`}
-          onClick={() => setIsMobileMenuOpen(true)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
+    return links.map((link) => (
+      <li key={link.hash} onClick={onClickHandler}>
+        {isHome ? (
+          <a href={link.hash}>{link.label}</a>
+        ) : (
+          <Link to={`/${link.hash}`}>{link.label}</Link>
+        )}
+      </li>
+    ));
+  };
+
+  return (
+    <>
+      <nav className="nav">
+        <div className="nav-inner">
+          <Link className="brand" to="/" onClick={() => setIsMobileMenuOpen(false)}>
+            jelly
+          </Link>
+
+          {/* Desktop Anchor Options */}
+          <ul className="nav-links">
+            {renderLinks()}
+          </ul>
+
+          {/* Utility Layout Controls */}
+          <div className="nav-actions">
+            <button className="settings-icon" onClick={toggleModal} aria-label="Settings">
+              <FontAwesomeIcon icon={faGear} />
+            </button>
+
+            {/* Hamburger Activation Button */}
+            <button
+              className={`hamburger ${isMobileMenuOpen ? "open" : ""}`}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </div>
 
-        {/* Desktop Nav */}
-        {/* <ul className="nav-links">
-          <li><a href="#home">Home</a></li>
+        {/* Mobile Navigation Panel */}
+        <div className={`mobile-sidebar ${isMobileMenuOpen ? "open" : ""}`}>
+          <div className="mobile-sidebar-header">
+            <span className="mobile-brand">jelly</span>
+            <button className="close-sidebar" onClick={() => setIsMobileMenuOpen(false)}>
+              &times;
+            </button>
+          </div>
 
-          <li ref={aboutRef} className={`about ${isDropdownOpen ? "open" : ""}`}>
-            <a href="#about" onClick={toggleDropdown}>About</a>
-           <ul ref={dropdownRef} className="dropdown">
-              <li><a href="#skills">Skills</a></li>
-              <li><a href="#education">Education</a></li>
-              <li><a href="#certification">Certification</a></li>
-              <li><a href="#work">Work</a></li>
-              <li><a href="#experience">Experience</a></li>
-              <li><a href="#journal">Journal</a></li>
-              <li><a href="#gallery">Gallery</a></li>
-            </ul>
-          </li>
+          <ul className="mobile-nav">
+            {renderLinks(true)}
+          </ul>
+        </div>
 
-          <li><a href="#contact">Contact</a></li>
-        </ul> */}
+        {/* Dynamic Theme Backdrop Blur Overlay */}
+        <div 
+          className={`sidebar-overlay ${isMobileMenuOpen ? "show" : ""}`} 
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      </nav>
 
-        <ul className="nav-links">
-          <li>
-            {isHome ? <a href="#home">Home</a> : <Link to="/#home">Home</Link>}
-          </li>
-
-          <li ref={aboutRef} className={`about ${isDropdownOpen ? "open" : ""}`}>
-            {isHome ? (
-              <a href="#about" onClick={toggleDropdown}>About</a>
-            ) : (
-              <Link to="/#about">About</Link>
-            )}
-          </li>
-
-          <li>
-            {isHome ? <a href="#contact">Contact</a> : <Link to="/#contact">Contact</Link>}
-          </li>
-        </ul>
-
-
-        {/* Settings Icon */}
-        <button className="settings-icon" onClick={toggleModal}>
-          <FontAwesomeIcon icon={faGear} />
-        </button>
-      </div>
-
-      {/* Dark overlay behind mobile menu */}
-      <div className={`mobile-sidebar ${isMobileMenuOpen ? "open" : ""}`}>
-  {/* Sidebar Header */}
-  <div className="mobile-sidebar-header">
-    <span className="mobile-brand">jelly</span>
-    <button
-      className="close-sidebar"
-      onClick={() => setIsMobileMenuOpen(false)}
-    >
-      ×
-    </button>
-  </div>
-
-  <ul className="mobile-nav">
-    <li onClick={() => setIsMobileMenuOpen(false)}>
-      {isHome ? <a href="#home">Home</a> : <Link to="/#home">Home</Link>}
-    </li>
-
-    <li onClick={() => setIsMobileMenuOpen(false)}>
-      {isHome ? <a href="#about">About</a> : <Link to="/#about">About</Link>}
-    </li>
-
-    <li onClick={() => setIsMobileMenuOpen(false)}>
-      {isHome ? <a href="#contact">Contact</a> : <Link to="/#contact">Contact</Link>}
-    </li>
-  </ul>
-</div>
-
-
-
-      {/* <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
-        <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-        <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
-        <a href="#education" onClick={() => setIsMobileMenuOpen(false)}>Education</a>
-        <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Experience</a>
-        <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a> */}
-
-      {/* Settings Modal */}
+      {/* Embedded Application Preferences Modal Component */}
       <SettingsModal
         isOpen={isModalOpen}
         onClose={toggleModal}
         onChangeTheme={handleChangeTheme}
         onChangeColor={handleChangeColor}
       />
-    </nav>
+    </>
   );
 }

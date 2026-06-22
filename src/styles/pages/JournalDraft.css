@@ -2,7 +2,7 @@
    JOURNAL SECTION
 ========================================================= */
 
-.journal-section {
+/* .journal-section {
   padding: 120px 10% 150px;
   text-align: center;
 }
@@ -18,27 +18,27 @@
   max-width: 620px;
   margin: 14px auto 80px;
   line-height: 1.6;
-}
+} */
 
 
 /* =========================================================
    GRID
 ========================================================= */
 
-.journal-grid {
+/* .journal-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 36px;
   max-width: 1200px;
   margin: auto;
-}
+} */
 
 
 /* =========================================================
    CARD
 ========================================================= */
 
-.journal-card {
+/* .journal-card {
   position: relative;
   border-radius: 24px;
   overflow: hidden;
@@ -65,14 +65,14 @@
 .journal-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 35px 80px rgba(0,0,0,0.55);
-}
+} */
 
 
 /* =========================================================
    IMAGE
 ========================================================= */
 
-.journal-image {
+/* .journal-image {
   height: 200px;
   overflow: hidden;
 }
@@ -88,14 +88,14 @@
 
 .journal-card:hover .journal-image img {
   transform: scale(1.15);
-}
+} */
 
 
 /* =========================================================
    CONTENT
 ========================================================= */
 
-.journal-content {
+/* .journal-content {
   padding: 26px;
   text-align: left;
 
@@ -124,14 +124,14 @@
   font-size: 14px;
   line-height: 1.6;
   color: var(--muted);
-}
+} */
 
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .journal-section {
     padding: 100px 6% 120px;
   }
@@ -147,4 +147,4 @@
   .journal-content p {
     font-size: 13.5px;
   }
-}
+} */

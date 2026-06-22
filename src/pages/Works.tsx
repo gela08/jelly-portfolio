@@ -11,65 +11,62 @@ type Work = {
 
 const works: Work[] = [
   {
+    title: "Jelly's Photobooth",
+    subtitle: "Side Project", 
+    description: "A vintage-style web photobooth running entirely client-side. Complete with 16 film filters, custom multiple layout matrices, and instant rendering asset downloads.",
+    image: "/projects/jellyphotobooth.png", // Ensure this matches your public/projects path asset file
+    link: "https://jelly-photobooth.vercel.app/",
+  },
+  {
     title: "Prince Law Associates",
     subtitle: "Part-time Work", 
-    description: "Designed and published multiple pages using ShowIt",
+    description: "Designed and published multiple high-converting landing pages and real estate dynamic blogs using ShowIt and WordPress integration.",
     image: "/projects/princelawassociates.png",
     link: "https://princelawassociates.com/real-estate",
   },
-  {
-    title: "Riverside Oaks Golf Resort",
-    subtitle: "Part-time Work", 
-    description: "Created a responsive page using WordPress",
-    image: "/projects/riversideoaks.png",
-    link: "https://wordpress-1540755-5959318.cloudwaysapps.com/weddings/",
-  },
+  
 ];
 
 export default function Works() {
   return (
     <section className="works-section" id="work">
-      <h2 className="works-title">My Works</h2>
-      <p className="works-subtitle">
-        A selection of projects, experiments, and UI explorations.
-      </p>
+      <div className="works-container">
+        <h2 className="works-title">My Works</h2>
+        <p className="works-subtitle">
+          A selection of featured projects, web experiments, and UI explorations.
+        </p>
 
-      <div className="timeline">
-        {/* <div className="timeline-line" /> */}
+        <div className="works-grid">
+          {works.map((work, index) => (
+            <div key={index} className="work-item reveal">
+              <a
+                href={work.link}
+                className="work-card"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="work-image-wrapper">
+                  <img src={work.image} alt={work.title} loading="lazy" />
+                </div>
+                <div className="work-info">
+                  <span className="work-badge">{work.subtitle}</span>
+                  <h2>{work.title}</h2>
+                  <p>{work.description}</p>
+                  <span className="work-link">
+                    View Project <span className="arrow-span">→</span>
+                  </span>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
 
-        {works.map((work, index) => (
-          <div
-            key={index}
-            className="timeline-item"
-            // className={`timeline-item ${
-            //   index % 2 === 0 ? "left" : "right"
-            // } reveal`}
-          >
-            <div className="timeline-dot" />
-
-            <a
-              href={work.link}
-              className="work-card"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={work.image} alt={work.title} />
-              <div className="work-info">
-                <h2>{work.title}</h2>
-                <p className="work-subtitle">{work.subtitle}</p>
-                <p>{work.description}</p>
-                <span className="work-link">View Project →</span>
-              </div>
-              
-            </a>
-          </div>
-        ))}
+        <div className="works-action-wrapper">
+          <Link to="/projects" className="works-viewmore">
+            View All Projects →
+          </Link>
+        </div>
       </div>
-
-      <Link to="/projects" className="works-viewmore">
-        View All Projects →
-      </Link>
-      
     </section>
   );
 }

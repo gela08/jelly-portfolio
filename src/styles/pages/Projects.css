@@ -3,20 +3,89 @@
 ============================== */
 
 .projects-page {
-  padding: 120px 10% 160px;
+  padding: 140px 10% 200px;
+  background: linear-gradient(
+    135deg,
+    rgba(120, 120, 255, 0.02) 0%,
+    rgba(200, 100, 255, 0.01) 50%,
+    rgba(120, 150, 255, 0.015) 100%
+  );
+  overflow-x: hidden;
+}
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 50px;
 }
 
 .projects-page h1 {
-  text-align: center;
-  font-size: 48px;
-  color: var(--accent);
-  margin-bottom: 18px;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 800;
+  color: var(--accent, #a78bfa);
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--accent, #a78bfa) 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .projects-sub {
-  text-align: center;
-  color: var(--muted);
-  margin-bottom: 120px;
+  color: var(--muted, #94a3b8);
+  font-size: 16px;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* ==============================
+   FILTER SECTION
+============================== */
+
+.projects-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 80px;
+  padding: 0 20px;
+}
+
+.filter-btn {
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted, #94a3b8);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.filter-btn:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+  background: rgba(167, 139, 250, 0.08);
+  color: var(--text, #f8fafc);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(192, 132, 252, 0.12));
+  border-color: var(--accent, #a78bfa);
+  color: var(--text, #f8fafc);
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.15);
+}
+
+.filter-btn svg {
+  font-size: 11px;
 }
 
 /* ==============================
@@ -26,45 +95,103 @@
 .projects-timeline {
   position: relative;
   max-width: 1000px;
-  margin: auto;
-  perspective: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .projects-timeline-line {
   position: absolute;
   left: 50%;
-  top: 40px;
-  bottom: 40px;
+  top: 0;
+  bottom: 0;
   width: 2px;
+  transform: translateX(-50%);
   background: linear-gradient(
     to bottom,
-    transparent,
-    rgba(255,255,255,0.12),
-    transparent
+    transparent 0%,
+    rgba(167, 139, 250, 0.15) 5%,
+    rgba(167, 139, 250, 0.15) 95%,
+    transparent 100%
   );
+  pointer-events: none;
 }
 
 /* ==============================
-   ROWS
+   ROW & CONNECTOR LINES
 ============================== */
 
 .project-row {
-  position: relative; /* REQUIRED */
+  position: relative;
   display: flex;
-  margin-bottom: 160px;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.project-row--left  { justify-content: flex-start; }
+.project-row--right { justify-content: flex-end; }
+
+/* Horizontal bridges connecting cards directly to timeline line */
+.project-row::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 6%;
+  height: 1px;
+  background: rgba(167, 139, 250, 0.2);
+  z-index: 1;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.project-row--left::before {
+  left: 44%;
+}
+
+.project-row--right::before {
+  right: 44%;
+}
+
+.project-row:hover::before {
+  background: rgba(167, 139, 250, 0.5);
+}
+
+/* ==============================
+   TIMELINE DOT
+============================== */
+
+.projects-timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%; 
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent, #a78bfa);
+  z-index: 3;
+  pointer-events: none;
+  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.2), 0 0 16px rgba(167, 139, 250, 0.5);
+  transition: all 0.3s ease;
+}
+
+.project-row:hover .projects-timeline-dot {
+  background: #c084fc;
+  box-shadow: 0 0 0 8px rgba(167, 139, 250, 0.25), 0 0 24px rgba(167, 139, 250, 0.7);
+}
+
+/* ==============================
+   LINK WRAPPER
+============================== */
+
+.project-link-wrapper {
+  display: block;
   text-decoration: none;
   color: inherit;
+  width: 44%; 
+  outline: none;
 }
-
-
-.project-row.left {
-  justify-content: flex-start;
-}
-
-.project-row.right {
-  justify-content: flex-end;
-}
-
 
 /* ==============================
    CARD
@@ -72,147 +199,255 @@
 
 .project-box {
   position: relative;
-  width: 383px;
-  height: 200px;
-  padding: 40px;
-  border-radius: 26px;
-
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  width: 85%;
+  padding: 32px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border, rgba(0, 0, 0, 0.08));
   backdrop-filter: blur(16px);
-
-  box-shadow: 0 0 24px rgba(0,0,0,0.18);
-
-  cursor: pointer;
-  transform-style: preserve-3d;
-
-  transition:
-    transform 0.4s ease,
-    box-shadow 0.4s ease,
-    border-color 0.4s ease;
+  -webkit-backdrop-filter: blur(16px);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-.project-box:hover {
-  transform: translateY(-10px) scale(1.02);
-  border-color: var(--accent);
-  box-shadow:
-    0 25px 70px rgba(0,0,0,0.4),
-    0 0 30px rgba(var(--accent-rgb, 120,120,255), 0.35);
+/* Interactive Spotlight */
+.project-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.04),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 
+.project-box-gradient {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.03) 0%,
+    transparent 100%
+  );
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
 
+.project-link-wrapper:hover .project-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(167, 139, 250, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.project-link-wrapper:hover .project-box::before,
+.project-link-wrapper:hover .project-box-gradient {
+  opacity: 1;
+}
+
+.project-link-wrapper:focus-visible .project-box {
+  border-color: var(--accent, #a78bfa);
+  box-shadow: 0 0 0 2px var(--accent, #a78bfa);
+}
+
+/* Private Card Overrides */
+.project-box--private {
+  cursor: default;
+  opacity: 0.6;
+}
+.project-box--private:hover {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: none !important;
+}
+
+/* ==============================
+   META & CONTENT
+============================== */
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
 
 .project-year {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: 0.5px;
+  color: var(--muted, #94a3b8);
+  opacity: 0.8;
 }
 
-.project-box h2 {
-  font-size: 22px;
-  margin: 10px 0 12px;
-  color: var(--text);
+.project-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  padding: 4px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.project-box p {
-  color: var(--muted);
-  line-height: 1.6;
+/* Custom Tag Schemes */
+.tag--ongoing   { color: #4ade80; background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.15); }
+.tag--side      { color: #a78bfa; background: rgba(167, 139, 250, 0.08); border: 1px solid rgba(167, 139, 250, 0.15); }
+.tag--school    { color: #fbbf24; background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.15); }
+.tag--client    { color: #38bdf8; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.15); }
+.tag--personal  { color: #f472b6; background: rgba(244, 114, 182, 0.08); border: 1px solid rgba(244, 114, 182, 0.15); }
+
+.project-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text, #f8fafc);
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.project-link-wrapper:hover .project-title {
+  color: var(--accent, #a78bfa);
+}
+
+.project-description {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted, #94a3b8);
+  margin: 0;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent, #a78bfa); /* High contrast text link color */
+  transition: gap 0.2s ease;
+}
+
+.project-link-wrapper:hover .project-link {
+  gap: 10px;
+}
+
+.link-text {
+  position: relative;
+}
+
+.link-text::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent, #a78bfa);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.project-link-wrapper:hover .link-text::after {
+  transform: scaleX(1);
+}
+
+.project-link--private {
+  color: var(--muted, #94a3b8);
+  font-size: 11px;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+/* ==============================
+   NO PROJECTS MESSAGE
+============================== */
+
+.no-projects {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted, #94a3b8);
   font-size: 15px;
 }
 
-
-.project-box span {
-  display: inline-block;
-  margin-top: 18px;
-  font-weight: 500;
-  color: var(--accent);
-  transition: transform 0.3s ease;
-}
-
-.project-box:hover span {
-  transform: translateX(8px);
-}
-
 /* ==============================
-   DOT
-============================== */
-
-.projects-timeline-dot {
-  position: absolute;
-  left: 50%;
-  top: 125px; /* aligns with card top — tweak if needed */
-  transform: translateX(-50%);
-
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-
-  background: var(--accent);
-  pointer-events: none;
-
-  box-shadow:
-    0 0 0 6px rgba(255,255,255,0.06),
-    0 0 20px var(--accent);
-
-  z-index: 3;
-}
-
-
-/* Left */
-/* .project-row.left .projects-timeline-dot {
-  right: 492px;
-  top: 78%;
-  
-} */
-
-/* Right */
-/* .project-row.right .projects-timeline-dot {
-  left: 493px;
-  top: 18%;
-} */
-
-
-/* ==============================
-   LINK
-============================== */
-
-.project-link {
-  display: inline-block;
-  margin-top: 18px;
-  font-weight: 500;
-  color: var(--accent);
-  transition: transform 0.3s ease;
-}
-
-.project-box:hover .project-link {
-  transform: translateX(8px);
-}
-
-
-/* ==============================
-   MOBILE
+   RESPONSIVE DESIGN (TABLETS & MOBILE)
 ============================== */
 
 @media (max-width: 850px) {
+  .projects-page {
+    padding: 100px 5% 150px;
+  }
+
+  .project-box {
+    width: 70%;
+  }
   .projects-timeline-line {
-    left: 8px;
+    left: 16px;
+    transform: none;
   }
 
   .project-row {
     justify-content: flex-start !important;
-    padding-left: 60px;
+    padding-left: 45px;
+    margin-bottom: 40px;
   }
 
-  .project-box {
+  /* Remove horizontal connectors on single-column phone screens */
+  .project-row::before {
+    display: none;
+  }
+
+  .project-link-wrapper {
     width: 100%;
-    height: 100%;
   }
 
   .projects-timeline-dot {
-    left: 8px !important;
-    right: auto;
+    left: 16px !important;
+    top: 50%;
   }
 }
 
+@media (max-width: 600px) {
+  .projects-filter {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 40px;
+  }
+  
+  .filter-btn {
+    white-space: nowrap;
+  }
+
+  .project-box {
+    padding: 24px;
+  }
+
+  .project-title {
+    font-size: 18px;
+  }
+}
+
+/* ==============================
+   REDUCED MOTION
+============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-box,
+  .project-box::before,
+  .project-link,
+  .projects-timeline-dot,
+  .filter-btn,
+  .project-row::before {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,5 +1,6 @@
 import { useRef, useState, type MouseEvent } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async"; // 1. Import Helmet
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRocket,
@@ -131,13 +132,23 @@ export default function Projects() {
   const inView = useInView(wrapperRef, { once: true, amount: 0.03 });
   const [selectedFilter] = useState<string | null>(null);
 
-
   const filteredProjects = selectedFilter
     ? projects.filter(p => p.tag === selectedFilter)
     : projects;
 
   return (
     <section className="projects-page">
+      {/* 2. Inject Dynamic SEO Tags for search crawlers */}
+      <Helmet>
+        <title>Projects | Luto ni Mommy Jho, Jelly's Photobooth & More by Angela Gardan</title>
+        <meta name="description" content="Explore Angela Gardan's portfolio of web development projects, featuring Luto ni Mommy Jho, Jelly's Photobooth, Simple Tools Hub, and custom React applications." />
+        <link rel="canonical" href="https://www.akaizer.dev/projects" />
+        
+        <meta property="og:title" content="Projects | Built by Angela Gardan" />
+        <meta property="og:description" content="Explore Angela Gardan's portfolio of web development projects, featuring live deployed web tools and client applications." />
+        <meta property="og:url" content="https://www.akaizer.dev/projects" />
+      </Helmet>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -149,35 +160,6 @@ export default function Projects() {
           A curated collection of my professional and personal work — from side projects to client work.
         </p>
       </motion.div>
-
-      {/* ─── Filter Tags ───
-      <motion.div
-        className="projects-filter"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <motion.button
-          className={`filter-btn ${selectedFilter === null ? 'active' : ''}`}
-          onClick={() => setSelectedFilter(null)}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-        >
-          All Projects
-        </motion.button>
-        {uniqueTags.map(tag => (
-          <motion.button
-            key={tag}
-            className={`filter-btn ${selectedFilter === tag ? 'active' : ''}`}
-            onClick={() => setSelectedFilter(tag)}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <FontAwesomeIcon icon={TAG_ICONS[tag] || faCode} />
-            {tag}
-          </motion.button>
-        ))}
-      </motion.div> */}
 
       <motion.div
         ref={wrapperRef}

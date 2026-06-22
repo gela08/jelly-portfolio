@@ -129,9 +129,9 @@ type Project = (typeof projects)[number];
 export default function Projects() {
   const wrapperRef = useRef(null);
   const inView = useInView(wrapperRef, { once: true, amount: 0.03 });
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+  const [selectedFilter] = useState<string | null>(null);
 
-  const uniqueTags = Array.from(new Set(projects.map(p => p.tag)));
+
   const filteredProjects = selectedFilter
     ? projects.filter(p => p.tag === selectedFilter)
     : projects;
